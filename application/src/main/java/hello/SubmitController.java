@@ -13,16 +13,25 @@ import java.util.Map;
 @Controller
 public class SubmitController{
 
-    @RequestMapping(value = "/submit")
+    @RequestMapping(value = "/submit", method = RequestMethod.POST)
     public ResponseEntity handle(
         @RequestHeader HttpHeaders httpHeaders,
         @PathVariable Map<String, String> pathVariables,
         @RequestParam Map<String, String> requestParams,
+        @RequestBody String requestBody,
         HttpServletRequest servletRequest
     ) {
+        System.out.println("requestBody = " + requestBody);
+
         HttpHeaders responseHeaders= new HttpHeaders();
         responseHeaders.setContentType(MediaType.APPLICATION_JSON);
-        String body = "{\"result\": \"OK\"}";
+        String body = "{\"result\": \"OK\", \"request\": " + requestBody + "}";
         return new ResponseEntity<>(body, responseHeaders, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/submit")
+    public ResponseEntity badRequest(){
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
     }
 }
