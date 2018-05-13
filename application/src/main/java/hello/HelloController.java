@@ -12,8 +12,8 @@ import java.util.Map;
 @RestController
 public class HelloController {
 
-    @RequestMapping("/{name}")
-    public String index(
+    @RequestMapping("/hello/{name}")
+    public String handle(
         @RequestHeader HttpHeaders httpHeaders,
         @PathVariable Map<String, String> pathVariables,
         @RequestParam Map<String, String> requestParams,
